@@ -5,6 +5,7 @@ import Link from "next/link";
 import MetricCard from "@/components/MetricCard";
 import { HomePageSkeleton } from "@/components/Skeleton";
 import ErrorBanner from "@/components/ErrorBanner";
+import EmptyState from "@/components/EmptyState";
 import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import type { StatsOverview, SessionInfo } from "@/types";
 
@@ -109,7 +110,18 @@ export default function HomePage() {
               <Link href="/campaigns" className="text-sm text-accent hover:underline">View all</Link>
             </div>
             {s.recent_sessions.length === 0 ? (
-              <p className="text-sm text-stone-400">No campaigns yet. Create one to get started.</p>
+              <EmptyState
+                icon={
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="4" width="18" height="16" rx="2" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                    <line x1="8" y1="14" x2="14" y2="14" />
+                  </svg>
+                }
+                title="No campaigns yet"
+                description="Spin up your first outbound campaign — VP Sales plans, SDR sources, AE drafts."
+                action={{ label: "+ New campaign", href: "/campaigns" }}
+              />
             ) : (
               <div className="space-y-2">
                 {s.recent_sessions.slice(0, 5).map((sess: SessionInfo) => {

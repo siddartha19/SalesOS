@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import { CRMSkeleton } from "@/components/Skeleton";
 import ErrorBanner from "@/components/ErrorBanner";
+import EmptyState from "@/components/EmptyState";
 import type { CRMProspect, CRMNote, SessionInfo } from "@/types";
 
 type ViewMode = "table" | "board" | "list";
@@ -280,7 +281,21 @@ export default function CRMPage() {
                   </thead>
                   <tbody>
                     {filtered.length === 0 ? (
-                      <tr><td colSpan={8} className="py-8 text-center text-stone-400">No prospects match your filters.</td></tr>
+                      <tr>
+                        <td colSpan={8}>
+                          <EmptyState
+                            icon={
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="11" cy="11" r="7" />
+                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                              </svg>
+                            }
+                            title="No prospects match your filters"
+                            description={searchQuery || filterStage !== "all" || filterSession !== "all" || filterFitMin > 0 ? "Try clearing a filter or widening your search." : "Run a campaign to source new prospects."}
+                            action={prospects.length === 0 ? { label: "New campaign", href: "/campaigns" } : undefined}
+                          />
+                        </td>
+                      </tr>
                     ) : (
                       filtered.map((p) => (
                         <tr
@@ -621,7 +636,7 @@ export default function CRMPage() {
 
               {/* Notes list */}
               {selectedProspect.notes.length === 0 ? (
-                <p className="text-xs text-stone-400 text-center py-4">No notes yet. Add one above.</p>
+                <p className="text-xs text-stone-400 text-center py-3">No notes yet — add the first one above.</p>
               ) : (
                 <div className="space-y-2">
                   {selectedProspect.notes.map((note) => (
