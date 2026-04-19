@@ -1,11 +1,14 @@
 services:
   - type: web
     name: opensales-landing
-    runtime: node
-    plan: free
+    runtime: static
     rootDir: frontend/landing-page
     buildCommand: npm install && npm run build
-    startCommand: npm run start
+    staticPublishPath: ./out
     envVars:
       - key: NODE_VERSION
         value: "20"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
