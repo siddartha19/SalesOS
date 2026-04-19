@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import type { CompanyInfo, ICPProfile } from "@/types";
 
 const EMPTY_COMPANY: CompanyInfo = {
@@ -13,6 +14,7 @@ const EMPTY_COMPANY: CompanyInfo = {
 };
 
 export default function GovernancePage() {
+  useDocumentTitle("Governance");
   const [company, setCompany] = useState<CompanyInfo>(EMPTY_COMPANY);
   const [icps, setIcps] = useState<ICPProfile[]>([]);
   const [newIcp, setNewIcp] = useState({ name: "", description: "" });

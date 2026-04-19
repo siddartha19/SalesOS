@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Link from "next/link";
+import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import type { Prospect, Draft, SentResult, Activity, SessionInfo, FollowUpSet } from "@/types";
 
 const DEFAULT_ICP =
@@ -12,6 +13,7 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
 
   const [session, setSession] = useState<SessionInfo | null>(null);
   const [loading, setLoading] = useState(true);
+  useDocumentTitle(session?.name || "Campaign");
 
   const [icp, setIcp] = useState(DEFAULT_ICP);
   const [targetCount, setTargetCount] = useState(8);

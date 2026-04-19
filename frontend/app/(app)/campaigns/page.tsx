@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import type { SessionInfo } from "@/types";
 
 export default function CampaignsListPage() {
+  useDocumentTitle("Campaigns");
   const [sessions, setSessions] = useState<SessionInfo[]>([]);
   const [loading, setLoading] = useState(true);
   const [newName, setNewName] = useState("");

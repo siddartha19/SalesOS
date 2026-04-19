@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import type { CRMProspect, CRMNote, SessionInfo } from "@/types";
 
 type ViewMode = "table" | "board" | "list";
@@ -35,6 +36,7 @@ const STAGE_COLORS: Record<string, string> = {
 };
 
 export default function CRMPage() {
+  useDocumentTitle("CRM");
   const [prospects, setProspects] = useState<CRMProspect[]>([]);
   const [sessions, setSessions] = useState<SessionInfo[]>([]);
   const [loading, setLoading] = useState(true);

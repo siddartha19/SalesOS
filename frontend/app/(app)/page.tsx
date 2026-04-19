@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import MetricCard from "@/components/MetricCard";
+import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import type { StatsOverview, SessionInfo } from "@/types";
 
 export default function HomePage() {
+  useDocumentTitle("Overview");
   const [stats, setStats] = useState<StatsOverview | null>(null);
   const [loading, setLoading] = useState(true);
 
