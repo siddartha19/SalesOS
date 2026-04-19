@@ -1,7 +1,7 @@
 import { Star } from "lucide-react";
 
 const GITHUB_URL = "https://github.com/siddartha19/SalesOS";
-const LOGIN_URL = "/login";
+const LOGIN_URL = "https://eb64-121-242-131-242.ngrok-free.app/login";
 
 export default function Nav() {
   return (
