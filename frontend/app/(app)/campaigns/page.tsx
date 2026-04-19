@@ -95,12 +95,17 @@ export default function CampaignsListPage() {
 
         {/* Filters */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex gap-1">
+          <div role="group" aria-label="Filter by phase" className="flex gap-1 flex-wrap">
             {phases.map((p) => (
               <button
                 key={p}
                 onClick={() => setFilterPhase(p)}
-                className={`pill cursor-pointer transition ${filterPhase === p ? "pill-accent" : ""}`}
+                aria-pressed={filterPhase === p}
+                className={`text-xs rounded-full px-2.5 py-1 font-medium border cursor-pointer transition-colors ${
+                  filterPhase === p
+                    ? "bg-accentSoft border-accent text-accent"
+                    : "bg-white border-border text-stone-600 hover:border-stone-400 hover:text-ink"
+                }`}
               >
                 {p}
               </button>
