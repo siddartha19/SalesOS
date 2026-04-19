@@ -623,7 +623,11 @@ export default function CRMPage() {
                   }}
                 />
                 <div className="flex items-center justify-between mt-1.5">
-                  <span className="text-[10px] text-stone-400">Cmd+Enter to save</span>
+                  <span className="text-[11px] text-stone-500 inline-flex items-center gap-1">
+                    Press
+                    <kbd className="px-1.5 py-0.5 rounded border border-border bg-stone-50 font-mono text-[10px]">⌘ ↵</kbd>
+                    to save
+                  </span>
                   <button
                     onClick={() => addNote(selectedProspect)}
                     disabled={addingNote || !noteText.trim()}
