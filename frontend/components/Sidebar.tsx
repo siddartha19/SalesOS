@@ -138,7 +138,10 @@ export default function Sidebar() {
 
       {/* Logout */}
       <div className="p-3 border-t border-border">
-        <button onClick={logout} className="btn btn-ghost text-stone-500 w-full text-sm justify-center">
+        <button
+          onClick={logout}
+          className="btn w-full text-sm justify-center text-stone-700 hover:text-ink"
+        >
           Logout
         </button>
       </div>
