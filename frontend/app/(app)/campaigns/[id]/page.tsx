@@ -8,6 +8,12 @@ import type { Prospect, Draft, SentResult, Activity, SessionInfo, FollowUpSet } 
 const DEFAULT_ICP =
   "Indian AI startup founders, Series A or earlier, building AI agent products, raised in 2024-2025.";
 
+// Per-session ICP persistence keys (localStorage). Each session keeps its own
+// ICP, target count, and autonomous toggle so reopening a campaign restores
+// exactly what the user last ran instead of the default placeholder text.
+const lsKey = (sessionId: string, field: string) =>
+  `salesos:campaign:${sessionId}:${field}`;
+
 export default function CampaignDetailPage({ params }: { params: { id: string } }) {
   const sessionId = params.id;
 
@@ -18,6 +24,7 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
   const [icp, setIcp] = useState(DEFAULT_ICP);
   const [targetCount, setTargetCount] = useState(8);
   const [autonomous, setAutonomous] = useState(false);
+  const [icpHydrated, setIcpHydrated] = useState(false);
 
   const [runId, setRunId] = useState<string | null>(null);
   const [phase, setPhase] = useState<"idle" | "sourcing" | "review" | "drafting" | "ready" | "sending" | "done">("idle");
@@ -53,6 +60,43 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
   function pushActivity(items: Activity[]) {
     setActivity((prev) => [...prev, ...items]);
   }
+
+  // Restore the ICP / target count / autonomous toggle that the user last
+  // used in this session. Runs once per sessionId on mount before the user
+  // can edit the textarea.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const savedIcp = localStorage.getItem(lsKey(sessionId, "icp"));
+      if (savedIcp != null && savedIcp !== "") setIcp(savedIcp);
+      const savedCount = localStorage.getItem(lsKey(sessionId, "target_count"));
+      if (savedCount) {
+        const n = Number(savedCount);
+        if (Number.isFinite(n) && n > 0) setTargetCount(n);
+      }
+      const savedAuto = localStorage.getItem(lsKey(sessionId, "autonomous"));
+      if (savedAuto === "1") setAutonomous(true);
+    } catch {}
+    setIcpHydrated(true);
+  }, [sessionId]);
+
+  // Persist edits so reopening the campaign always shows the last-used
+  // settings instead of the default ICP. Skipped until we've hydrated to
+  // avoid the initial render overwriting saved values with the defaults.
+  useEffect(() => {
+    if (!icpHydrated || typeof window === "undefined") return;
+    try {
+      localStorage.setItem(lsKey(sessionId, "icp"), icp);
+    } catch {}
+  }, [sessionId, icp, icpHydrated]);
+
+  useEffect(() => {
+    if (!icpHydrated || typeof window === "undefined") return;
+    try {
+      localStorage.setItem(lsKey(sessionId, "target_count"), String(targetCount));
+      localStorage.setItem(lsKey(sessionId, "autonomous"), autonomous ? "1" : "0");
+    } catch {}
+  }, [sessionId, targetCount, autonomous, icpHydrated]);
 
   // Load session data
   useEffect(() => {
@@ -465,56 +509,76 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
       <div className="max-w-5xl mx-auto px-6 py-6 space-y-6">
         {/* ICP form */}
         <section className="card">
-          <div className="flex items-baseline justify-between mb-3">
+          <div className="flex items-start justify-between gap-4 mb-4">
             <div>
-              <h2 className="text-lg font-semibold">Define your ICP</h2>
-              <p className="text-sm text-stone-500">VP Sales will plan, SDR will source, AE will draft.</p>
+              <h2 className="text-lg font-semibold leading-tight">Define your ICP</h2>
+              <p className="text-sm text-stone-500 mt-0.5">
+                VP Sales plans · SDR sources · AE drafts.
+              </p>
             </div>
-            <div className="text-xs pill">{phaseLabel}</div>
+            <span className="pill shrink-0 mt-1">{phaseLabel}</span>
           </div>
+
           <textarea
-            className="textarea h-24"
+            className="textarea h-24 leading-relaxed"
             value={icp}
             onChange={(e) => setIcp(e.target.value)}
             placeholder="e.g. Indian AI startup founders, Series A or earlier…"
           />
-          <div className="flex flex-wrap items-end gap-3 mt-3">
-            <div>
-              <label className="label">Target count</label>
+
+          {/* Bottom controls: target count, autonomous toggle, run button.
+              One horizontal row on md+, stacked on mobile. The toggle uses an
+              inline switch so it stops competing visually with the textarea. */}
+          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mt-4 pt-4 border-t border-border">
+            <div className="flex items-center gap-2">
+              <span className="label">Target count</span>
               <input
                 type="number" min={3} max={15}
                 value={targetCount}
                 onChange={(e) => setTargetCount(Number(e.target.value))}
-                className="input mt-1 w-24"
+                className="input w-20 py-1.5 text-center"
               />
             </div>
+
             <label
-              className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition select-none ${
-                autonomous ? "border-accent bg-accentSoft/30" : "border-border"
-              }`}
+              className="flex items-center gap-2.5 cursor-pointer select-none group"
               title="VP plans, SDR sources, AE drafts, VP reviews each draft, AE sends — all without human approval"
             >
-              <input
-                type="checkbox"
-                checked={autonomous}
-                onChange={(e) => setAutonomous(e.target.checked)}
-              />
-              <span className="text-sm">
+              <span
+                className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border transition-colors ${
+                  autonomous ? "bg-accent border-accent" : "bg-stone-200 border-stone-300 group-hover:bg-stone-300"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  className="sr-only"
+                  checked={autonomous}
+                  onChange={(e) => setAutonomous(e.target.checked)}
+                />
+                <span
+                  className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform ${
+                    autonomous ? "translate-x-4" : "translate-x-0.5"
+                  }`}
+                />
+              </span>
+              <span className="text-sm leading-tight">
                 <span className="font-medium">Autonomous mode</span>
                 <span className="text-stone-500 block text-xs">
-                  No human in the loop. VP reviews each draft and auto-sends approved ones.
+                  Skip human review — VP approves & AE auto-sends.
                 </span>
               </span>
             </label>
+
             <button
               onClick={startCampaign}
               disabled={phase === "sourcing" || phase === "drafting" || phase === "sending"}
-              className="btn btn-primary ml-auto"
+              className="btn btn-primary md:ml-auto justify-center"
             >
               {phase === "sourcing" ? "Sourcing…" :
                autonomous ? "▶ Run autonomously" : "▶ Run sales team"}
             </button>
           </div>
+
           {error && <div className="text-sm pill pill-danger mt-3">{error}</div>}
         </section>
 
