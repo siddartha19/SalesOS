@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import { CRMSkeleton } from "@/components/Skeleton";
+import ErrorBanner from "@/components/ErrorBanner";
 import type { CRMProspect, CRMNote, SessionInfo } from "@/types";
 
 type ViewMode = "table" | "board" | "list";
@@ -41,6 +42,7 @@ export default function CRMPage() {
   const [prospects, setProspects] = useState<CRMProspect[]>([]);
   const [sessions, setSessions] = useState<SessionInfo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [view, setView] = useState<ViewMode>("table");
 
   // Detail panel
@@ -60,16 +62,23 @@ export default function CRMPage() {
   }, []);
 
   async function loadData() {
+    setLoadError(null);
+    setLoading(true);
     try {
       const [pr, sr] = await Promise.all([
         fetch("/api/proxy/crm/prospects"),
         fetch("/api/proxy/sessions"),
       ]);
+      if (!pr.ok || !sr.ok) {
+        throw new Error(`Server returned ${pr.ok ? sr.status : pr.status}`);
+      }
       const pj = await pr.json();
       const sj = await sr.json();
       setProspects(pj.prospects || []);
       setSessions(sj.sessions || []);
-    } catch {} finally {
+    } catch (e: any) {
+      setLoadError(e?.message || "Network error — couldn’t load CRM data.");
+    } finally {
       setLoading(false);
     }
   }
@@ -210,6 +219,8 @@ export default function CRMPage() {
 
         <div className="flex-1 overflow-auto">
           <div className="px-6 py-4">
+            {loadError && <ErrorBanner message={loadError} onRetry={loadData} className="mb-4" />}
+
             {/* Filters */}
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <input

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import MetricCard from "@/components/MetricCard";
 import { HomePageSkeleton } from "@/components/Skeleton";
+import ErrorBanner from "@/components/ErrorBanner";
 import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import type { StatsOverview, SessionInfo } from "@/types";
 
@@ -11,17 +12,23 @@ export default function HomePage() {
   useDocumentTitle("Overview");
   const [stats, setStats] = useState<StatsOverview | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadStats();
   }, []);
 
   async function loadStats() {
+    setError(null);
+    setLoading(true);
     try {
       const r = await fetch("/api/proxy/stats");
+      if (!r.ok) throw new Error(`Server returned ${r.status}`);
       const j = await r.json();
       setStats(j);
-    } catch {} finally {
+    } catch (e: any) {
+      setError(e?.message || "Network error — couldn’t reach the server.");
+    } finally {
       setLoading(false);
     }
   }
@@ -57,6 +64,8 @@ export default function HomePage() {
       </header>
 
       <div className="max-w-6xl mx-auto px-6 py-6 space-y-6">
+        {error && <ErrorBanner message={error} onRetry={loadStats} />}
+
         {/* Metric cards */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           <MetricCard label="Campaigns" value={s.total_campaigns} sub={`${s.active_campaigns} active`} />

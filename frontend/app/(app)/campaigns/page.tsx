@@ -5,12 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDocumentTitle } from "@/lib/useDocumentTitle";
 import { ListPageSkeleton } from "@/components/Skeleton";
+import ErrorBanner from "@/components/ErrorBanner";
 import type { SessionInfo } from "@/types";
 
 export default function CampaignsListPage() {
   useDocumentTitle("Campaigns");
   const [sessions, setSessions] = useState<SessionInfo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [newName, setNewName] = useState("");
   const [creating, setCreating] = useState(false);
   const [sortBy, setSortBy] = useState<"date" | "name" | "phase">("date");
@@ -22,11 +24,16 @@ export default function CampaignsListPage() {
   }, []);
 
   async function loadSessions() {
+    setError(null);
+    setLoading(true);
     try {
       const r = await fetch("/api/proxy/sessions");
+      if (!r.ok) throw new Error(`Server returned ${r.status}`);
       const j = await r.json();
       setSessions(j.sessions || []);
-    } catch {} finally {
+    } catch (e: any) {
+      setError(e?.message || "Network error — couldn’t load campaigns.");
+    } finally {
       setLoading(false);
     }
   }
@@ -84,6 +91,8 @@ export default function CampaignsListPage() {
       </header>
 
       <div className="max-w-5xl mx-auto px-6 py-6 space-y-4">
+        {error && <ErrorBanner message={error} onRetry={loadSessions} />}
+
         {/* Filters */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex gap-1">
