@@ -304,7 +304,7 @@ export default function CRMPage() {
                           <td className="py-2.5 pr-3 text-stone-500 mono text-xs">{p.email || "—"}</td>
                           <td className="py-2.5 pr-3">
                             <select
-                              className="text-xs rounded-full px-2 py-0.5 font-medium border-0 cursor-pointer bg-transparent focus:ring-0 focus:outline-none"
+                              className="text-xs rounded-full px-2 py-0.5 font-medium border-0 cursor-pointer bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
                               style={{
                                 background: STAGE_BG[p.stage] || "#f3f1ea",
                                 color: STAGE_FG[p.stage] || "#555148",
