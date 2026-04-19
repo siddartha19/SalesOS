@@ -75,7 +75,7 @@ export default function Sidebar() {
         <div className="mt-1">
           <button
             onClick={() => setCampaignsOpen(!campaignsOpen)}
-            className={`w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-stone-50 transition ${
+            className={`w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-stone-50 transition-colors duration-150 ${
               isCampaignActive ? "text-accent font-medium" : "text-stone-700"
             }`}
           >
@@ -90,7 +90,7 @@ export default function Sidebar() {
             <div className="ml-4 border-l border-stone-100">
               <Link
                 href="/campaigns"
-                className={`block px-4 py-1.5 text-sm hover:bg-stone-50 transition ${
+                className={`block px-4 py-1.5 text-sm hover:bg-stone-50 transition-colors duration-150 ${
                   pathname === "/campaigns" ? "text-accent font-medium bg-accentSoft/40" : "text-stone-600"
                 }`}
               >
@@ -100,7 +100,7 @@ export default function Sidebar() {
                 <Link
                   key={s.session_id}
                   href={`/campaigns/${s.session_id}`}
-                  className={`block px-4 py-1.5 text-sm truncate hover:bg-stone-50 transition ${
+                  className={`block px-4 py-1.5 text-sm truncate hover:bg-stone-50 transition-colors duration-150 ${
                     pathname === `/campaigns/${s.session_id}` ? "text-accent font-medium bg-accentSoft/40" : "text-stone-500"
                   }`}
                   title={s.name}
@@ -120,7 +120,7 @@ export default function Sidebar() {
                   <button
                     onClick={createSession}
                     disabled={creating || !newName.trim()}
-                    className="text-accent text-sm font-semibold px-1.5 hover:bg-accentSoft rounded transition disabled:opacity-30"
+                    className="text-accent text-sm font-semibold px-1.5 hover:bg-accentSoft rounded transition-colors disabled:opacity-30"
                   >
                     +
                   </button>
@@ -150,7 +150,7 @@ function NavLink({ label, href, icon, active }: { label: string; href: string; i
   return (
     <Link
       href={href}
-      className={`flex items-center gap-2.5 px-4 py-2 text-sm transition ${
+      className={`flex items-center gap-2.5 px-4 py-2 text-sm transition-colors ${
         active
           ? "text-accent font-medium bg-accentSoft/40 border-r-2 border-accent"
           : "text-stone-700 hover:bg-stone-50"

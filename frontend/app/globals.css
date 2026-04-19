@@ -13,7 +13,7 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium border transition;
+    @apply inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium border transition-colors duration-150;
     border-color: #d8d6cf;
     background: #fff;
   }
@@ -39,7 +39,7 @@
   .pill-warn { background: #ffe9d3; color: #b25400; }
   .pill-danger { background: #fde2de; color: #c0392b; }
   .input, .textarea, .select {
-    @apply w-full rounded-md border px-3 py-2 text-sm outline-none transition;
+    @apply w-full rounded-md border px-3 py-2 text-sm outline-none transition-colors duration-150;
     border-color: #d8d6cf;
     background: #fff;
   }
