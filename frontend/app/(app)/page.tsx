@@ -143,13 +143,6 @@ export default function HomePage() {
                   <div className="text-xs text-stone-500">Source prospects and send outreach</div>
                 </div>
               </Link>
-              <Link href="/analytics" className="flex items-center gap-3 p-3 rounded-lg hover:bg-stone-50 transition border border-border">
-                <span className="w-9 h-9 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-lg">◪</span>
-                <div>
-                  <div className="font-medium text-sm">View Analytics</div>
-                  <div className="text-xs text-stone-500">Campaign performance and metrics</div>
-                </div>
-              </Link>
               <Link href="/crm" className="flex items-center gap-3 p-3 rounded-lg hover:bg-stone-50 transition border border-border">
                 <span className="w-9 h-9 rounded-lg bg-accent/10 text-accent flex items-center justify-center text-lg">◫</span>
                 <div>

@@ -5,6 +5,23 @@ import type { CRMProspect, CRMNote, SessionInfo } from "@/types";
 
 type ViewMode = "table" | "board" | "list";
 
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+  );
+}
+
+function EmailIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+    </svg>
+  );
+}
+
 const STAGES = ["Sourced", "Researched", "Outreach Sent", "Replied", "Qualified", "Demo Booked", "Lost"];
 
 const STAGE_COLORS: Record<string, string> = {
@@ -260,14 +277,27 @@ export default function CRMPage() {
                           }`}
                         >
                           <td className="py-2.5 pr-3">
-                            <div className="font-medium">{p.dm_name}</div>
-                            {p.dm_linkedin && (
-                              <a
-                                href={p.dm_linkedin} target="_blank" rel="noreferrer"
-                                className="text-xs text-accent hover:underline"
-                                onClick={(e) => e.stopPropagation()}
-                              >{p.dm_linkedin.replace(/^https?:\/\//, "")}</a>
-                            )}
+                            <div className="flex items-center gap-2">
+                              <div className="font-medium">{p.dm_name}</div>
+                              <div className="flex items-center gap-1">
+                                {p.dm_linkedin && (
+                                  <a
+                                    href={p.dm_linkedin} target="_blank" rel="noreferrer"
+                                    className="text-[#0A66C2] hover:opacity-70 transition"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title={p.dm_linkedin}
+                                  ><LinkedInIcon /></a>
+                                )}
+                                {p.email && (
+                                  <a
+                                    href={`mailto:${p.email}`}
+                                    className="text-stone-400 hover:text-stone-600 transition"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title={p.email}
+                                  ><EmailIcon /></a>
+                                )}
+                              </div>
+                            </div>
                           </td>
                           <td className="py-2.5 pr-3 text-stone-600">{p.dm_title}</td>
                           <td className="py-2.5 pr-3 font-medium">{p.company}</td>
@@ -328,16 +358,29 @@ export default function CRMPage() {
                             selectedId === p.id ? "ring-2 ring-accent" : ""
                           }`}
                         >
-                          <div className="font-medium text-sm">{p.dm_name}</div>
+                          <div className="flex items-center justify-between">
+                            <div className="font-medium text-sm">{p.dm_name}</div>
+                            <div className="flex items-center gap-1">
+                              {p.dm_linkedin && (
+                                <a
+                                  href={p.dm_linkedin} target="_blank" rel="noreferrer"
+                                  className="text-[#0A66C2] hover:opacity-70 transition"
+                                  onClick={(e) => e.stopPropagation()}
+                                  title={p.dm_linkedin}
+                                ><LinkedInIcon className="w-3 h-3" /></a>
+                              )}
+                              {p.email && (
+                                <a
+                                  href={`mailto:${p.email}`}
+                                  className="text-stone-400 hover:text-stone-600 transition"
+                                  onClick={(e) => e.stopPropagation()}
+                                  title={p.email}
+                                ><EmailIcon className="w-3 h-3" /></a>
+                              )}
+                            </div>
+                          </div>
                           <div className="text-xs text-stone-500">{p.dm_title}</div>
                           <div className="text-xs font-medium mt-1">{p.company}</div>
-                          {p.dm_linkedin && (
-                            <a
-                              href={p.dm_linkedin} target="_blank" rel="noreferrer"
-                              className="text-[10px] text-accent hover:underline mt-1 block truncate"
-                              onClick={(e) => e.stopPropagation()}
-                            >{p.dm_linkedin.replace(/^https?:\/\//, "")}</a>
-                          )}
                           <div className="flex items-center gap-1.5 mt-1.5">
                             {p.fit_score && (
                               <span className="pill pill-accent text-[10px]">{Math.round(p.fit_score * 100)}% fit</span>
@@ -396,16 +439,27 @@ export default function CRMPage() {
                               selectedId === p.id ? "bg-accentSoft/30" : ""
                             }`}
                           >
-                            <div className="flex-1 min-w-0">
+                            <div className="flex-1 min-w-0 flex items-center gap-2">
                               <span className="font-medium text-sm">{p.dm_name}</span>
                               <span className="text-stone-500 text-sm"> · {p.dm_title}</span>
-                              {p.dm_linkedin && (
-                                <a
-                                  href={p.dm_linkedin} target="_blank" rel="noreferrer"
-                                  className="text-[10px] text-accent hover:underline ml-2"
-                                  onClick={(e) => e.stopPropagation()}
-                                >{p.dm_linkedin.replace(/^https?:\/\//, "")}</a>
-                              )}
+                              <div className="flex items-center gap-1 ml-1">
+                                {p.dm_linkedin && (
+                                  <a
+                                    href={p.dm_linkedin} target="_blank" rel="noreferrer"
+                                    className="text-[#0A66C2] hover:opacity-70 transition"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title={p.dm_linkedin}
+                                  ><LinkedInIcon className="w-3 h-3" /></a>
+                                )}
+                                {p.email && (
+                                  <a
+                                    href={`mailto:${p.email}`}
+                                    className="text-stone-400 hover:text-stone-600 transition"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title={p.email}
+                                  ><EmailIcon className="w-3 h-3" /></a>
+                                )}
+                              </div>
                             </div>
                             <select
                               className="text-[10px] rounded px-1.5 py-0.5 border border-stone-200 bg-white cursor-pointer"
@@ -466,14 +520,18 @@ export default function CRMPage() {
               {selectedProspect.email && (
                 <div>
                   <div className="label">Email</div>
-                  <div className="text-sm mono">{selectedProspect.email}</div>
+                  <a href={`mailto:${selectedProspect.email}`} className="text-sm text-stone-700 hover:text-accent transition flex items-center gap-1.5 mt-0.5">
+                    <EmailIcon className="text-stone-400 shrink-0" />
+                    <span className="mono break-all">{selectedProspect.email}</span>
+                  </a>
                 </div>
               )}
               {selectedProspect.dm_linkedin && (
                 <div>
                   <div className="label">LinkedIn</div>
-                  <a href={selectedProspect.dm_linkedin} target="_blank" rel="noreferrer" className="text-sm text-accent hover:underline break-all">
-                    {selectedProspect.dm_linkedin.replace(/^https?:\/\//, "")}
+                  <a href={selectedProspect.dm_linkedin} target="_blank" rel="noreferrer" className="text-sm text-[#0A66C2] hover:opacity-70 transition flex items-center gap-1.5 mt-0.5">
+                    <LinkedInIcon className="shrink-0" />
+                    <span className="break-all">{selectedProspect.dm_linkedin.replace(/^https?:\/\//, "")}</span>
                   </a>
                 </div>
               )}

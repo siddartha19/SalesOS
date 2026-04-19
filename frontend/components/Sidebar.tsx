@@ -8,7 +8,6 @@ import type { SessionInfo } from "@/types";
 const NAV_ITEMS = [
   { label: "Home", href: "/", icon: "⌂" },
   { label: "Governance", href: "/governance", icon: "◈" },
-  { label: "Analytics", href: "/analytics", icon: "◪" },
   { label: "CRM", href: "/crm", icon: "◫" },
 ];
 
