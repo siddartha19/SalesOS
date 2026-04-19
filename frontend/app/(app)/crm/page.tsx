@@ -189,7 +189,7 @@ export default function CRMPage() {
           <div className="px-6 py-4 flex items-center justify-between">
             <div>
               <h1 className="text-xl font-semibold">CRM</h1>
-              <p className="text-sm text-stone-500 mt-0.5">{prospects.length} prospects across {sessions.length} campaigns</p>
+              <p className="text-sm text-stone-500 mt-1.5">{prospects.length} prospects across {sessions.length} campaigns</p>
             </div>
             <div className="flex gap-1">
               {(["table", "board", "list"] as ViewMode[]).map((v) => (

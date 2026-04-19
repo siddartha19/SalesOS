@@ -53,7 +53,7 @@ export default function HomePage() {
       <header className="border-b border-border bg-white">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <h1 className="text-xl font-semibold">Overview</h1>
-          <p className="text-sm text-stone-500 mt-0.5">Your SalesOS command center</p>
+          <p className="text-sm text-stone-500 mt-1.5">Your SalesOS command center</p>
         </div>
       </header>
 
