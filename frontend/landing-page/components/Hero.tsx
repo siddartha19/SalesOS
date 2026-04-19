@@ -41,7 +41,7 @@ export default function Hero() {
 
       <div className="mt-6 inline-flex items-center gap-3 px-3 py-1.5 rounded-md border hairline bg-white mono text-[13px] text-stone-500">
         <span className="text-accent">$</span>
-        <span className="text-ink">npx opensales init</span>
+        <span className="text-ink">git clone github.com/siddartha19/SalesOS</span>
         <button
           aria-label="Copy"
           className="text-stone-400 hover:text-ink transition"
