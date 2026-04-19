@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    background: #fafaf7;
+    color: #0c0e16;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection { background: #dff5e8; color: #0c0e16; }
+
+  h1, h2, h3 { letter-spacing: -0.02em; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium border transition duration-150;
+    border-color: #d8d6cf;
+    background: #fff;
+    color: #0c0e16;
+  }
+  .btn:hover { background: #f3f1ea; }
+
+  .btn-primary {
+    @apply text-white;
+    background: #0a7c4a;
+    border-color: #0a7c4a;
+  }
+  .btn-primary:hover { background: #086a3f; }
+
+  .btn-ghost {
+    background: transparent;
+    border-color: transparent;
+  }
+  .btn-ghost:hover { background: #f3f1ea; }
+
+  .card {
+    @apply rounded-xl bg-white border p-5 transition duration-150;
+    border-color: #e6e4dc;
+    box-shadow: 0 1px 0 rgba(12, 14, 22, 0.03);
+  }
+  .card-hover:hover {
+    transform: translateY(-1px);
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 text-xs rounded-full font-medium;
+    background: #f3f1ea;
+    color: #555148;
+  }
+  .pill-accent { background: #dff5e8; color: #0a7c4a; }
+
+  .input, .textarea, .select {
+    @apply w-full rounded-md border px-3 py-2 text-sm outline-none transition duration-150;
+    border-color: #d8d6cf;
+    background: #fff;
+  }
+  .input:focus, .textarea:focus, .select:focus {
+    border-color: #0a7c4a;
+    box-shadow: 0 0 0 3px #dff5e8;
+  }
+
+  .label {
+    @apply text-[11px] uppercase tracking-wide font-semibold;
+    color: #555148;
+  }
+
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .hairline { border-color: #e6e4dc; }
+}
+
+/* Blinking terminal cursor */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cursor-blink::after {
+  content: "▍";
+  margin-left: 2px;
+  color: #0a7c4a;
+  animation: blink 1s step-end infinite;
+}
