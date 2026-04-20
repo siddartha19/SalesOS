@@ -5,11 +5,6 @@ import { GITHUB_URL, SIGNUP_URL } from "@/lib/urls";
 export default function Hero() {
   return (
     <section className="max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-24 md:pb-20 text-center">
-      <span className="pill pill-accent mb-7">
-        <span className="mono text-[10.5px] tracking-wide">
-          Open source · MIT · Built for India&apos;s first OpenCode Buildathon
-        </span>
-      </span>
 
       <h1 className="text-[44px] sm:text-[56px] md:text-[64px] font-bold tracking-tightest leading-[1.04] text-ink">
         Your AI sales team that
@@ -95,9 +90,8 @@ function TerminalCard() {
         {lines.map((l, i) => (
           <div
             key={l.n}
-            className={`flex items-start gap-3 ${
-              i === lines.length - 1 ? "cursor-blink" : ""
-            }`}
+            className={`flex items-start gap-3 ${i === lines.length - 1 ? "cursor-blink" : ""
+              }`}
           >
             <span className="text-stone-400 tabular-nums select-none">{l.n}.</span>
             <span className="text-accent font-semibold shrink-0">{l.event}</span>

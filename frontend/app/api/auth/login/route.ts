@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     return res;
   } catch {
     // Fallback: if backend is unreachable, use env-based auth
-    const wantEmail = process.env.AUTH_EMAIL || "hr@alerahq.com";
+    const wantEmail = process.env.AUTH_EMAIL || "demo@opensales.com";
     const wantPass = process.env.AUTH_PASSWORD || "Admin@123";
     if (email !== wantEmail || password !== wantPass) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });

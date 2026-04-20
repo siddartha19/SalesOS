@@ -6,7 +6,6 @@ graph routes inside each phase based on the VP prompt.
 
 Direct LLM calls with structured output handle the parsing-fragile parts
 (extracting ProspectDossiers from SDR, OutreachDraft from AE) — keeps the
-hackathon demo deterministic.
 """
 from __future__ import annotations
 

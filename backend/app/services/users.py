@@ -1,7 +1,7 @@
 """User persistence — SQLite-backed CRUD for user accounts.
 
 Supports signup, login validation, and listing all users for the admin panel.
-Seeds a default admin user (hr@alerahq.com) on first run.
+Seeds a default admin user (demo@opensales.com) on first run.
 """
 from __future__ import annotations
 
@@ -53,10 +53,10 @@ def _ensure_table() -> None:
 
 
 def _seed_default_admin() -> None:
-    """Ensure hr@alerahq.com exists as the default admin user."""
+    """Ensure demo@opensales.com exists as the default admin user."""
     with _conn() as conn:
         existing = conn.execute(
-            "SELECT id FROM users WHERE email = ?", ("hr@alerahq.com",)
+            "SELECT id FROM users WHERE email = ?", ("demo@opensales.com",)
         ).fetchone()
         if not existing:
             conn.execute(
@@ -65,7 +65,7 @@ def _seed_default_admin() -> None:
                 (
                     f"usr_{uuid.uuid4().hex[:10]}",
                     "Admin",
-                    "hr@alerahq.com",
+                    "demo@opensales.com",
                     _hash_password("Admin@123"),
                     "admin",
                     _now_ist_iso(),

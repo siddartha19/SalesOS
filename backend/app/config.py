@@ -27,9 +27,9 @@ LLM_MODEL = _strip(os.getenv("LLM_MODEL", "google/gemini-2.0-flash-001"))
 
 # ---------- Email ----------
 SENDGRID_API_KEY = _strip(os.getenv("SENDGRID_API_KEY"))
-SENDGRID_FROM_EMAIL = _strip(os.getenv("SENDGRID_FROM_EMAIL", "demo@opencode.com"))
-SENDGRID_FROM_NAME = _strip(os.getenv("SENDGRID_FROM_NAME", "SalesOS Demo"))
-EMAIL_FALLBACK_RECIPIENT = _strip(os.getenv("EMAIL_FALLBACK_RECIPIENT", "demo@salesos.opensource"))
+SENDGRID_FROM_EMAIL = _strip(os.getenv("SENDGRID_FROM_EMAIL", "demo@opensales.com"))
+SENDGRID_FROM_NAME = _strip(os.getenv("SENDGRID_FROM_NAME", "OpenSales"))
+EMAIL_FALLBACK_RECIPIENT = _strip(os.getenv("EMAIL_FALLBACK_RECIPIENT", "demo@opensales.com"))
 
 # ---------- Search / enrichment ----------
 EXA_API_KEY = _strip(os.getenv("EXA_API_KEY"))
@@ -47,7 +47,7 @@ FIRECRAWL_API_KEY = _strip(os.getenv("FIRECRAWL_API_KEY"))
 GOOGLE_SHEET_ID = _strip(os.getenv("GOOGLE_SHEET_ID"))
 
 # ---------- Auth ----------
-AUTH_EMAIL = _strip(os.getenv("AUTH_EMAIL", "hr@alerahq.com"))
+AUTH_EMAIL = _strip(os.getenv("AUTH_EMAIL", "demo@opensales.com"))
 AUTH_PASSWORD = _strip(os.getenv("AUTH_PASSWORD", "Admin@123"))
 AUTH_SECRET = _strip(os.getenv("AUTH_SECRET", "change-me"))
 

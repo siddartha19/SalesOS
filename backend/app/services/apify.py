@@ -22,7 +22,7 @@ import httpx
 from ..config import APIFY_API_TOKEN, APIFY_LINKEDIN_ACTOR_ID, DB_PATH
 
 TIMEOUT_S = 15
-CACHE_TTL_HOURS = 168  # 7 days — for hackathon demo, cache aggressively
+CACHE_TTL_HOURS = 168 
 
 
 def init_cache() -> None:
