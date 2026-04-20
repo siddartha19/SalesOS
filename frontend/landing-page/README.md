@@ -1,6 +1,6 @@
 # OpenSales — Landing Page
 
-Marketing site for [OpenSales](https://github.com/siddartha19/SalesOS) — an open-source,
+Marketing site for [OpenSales](https://github.com/siddartha19/OpenSales) — an open-source,
 multi-agent AI sales team that runs outbound end-to-end.
 
 Built with Next.js 14 (App Router), Tailwind, Inter (next/font/google), and lucide-react.
@@ -21,7 +21,7 @@ via `NEXT_PUBLIC_APP_URL` (no trailing slash). Defaults to
 `http://localhost:3000` for local dev.
 
 ```bash
-NEXT_PUBLIC_APP_URL=https://salesos.example.com npm run build
+NEXT_PUBLIC_APP_URL=https://opensales.example.com npm run build
 ```
 
 `NEXT_PUBLIC_*` values are inlined at build time, so changing the URL
@@ -48,7 +48,7 @@ Render provides the `PORT` env var; the `start` script reads it automatically.
 
 ## Links
 
-- Repo: https://github.com/siddartha19/SalesOS
+- Repo: https://github.com/siddartha19/OpenSales
 - Sign in: `${NEXT_PUBLIC_APP_URL}/login`
 - Get started / Run a campaign: `${NEXT_PUBLIC_APP_URL}/signup`
 

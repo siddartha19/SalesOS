@@ -57,7 +57,7 @@ export default function AdminPage() {
         <div className="max-w-5xl mx-auto px-6 py-4">
           <h1 className="text-2xl font-semibold tracking-tight">Admin</h1>
           <p className="text-sm text-stone-500 mt-1.5">
-            All registered users on SalesOS
+            All registered users on OpenSales
           </p>
         </div>
       </header>
@@ -137,11 +137,10 @@ export default function AdminPage() {
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`inline-block text-xs px-2 py-0.5 rounded-full font-medium ${
-                          user.role === "admin"
+                        className={`inline-block text-xs px-2 py-0.5 rounded-full font-medium ${user.role === "admin"
                             ? "bg-accent/10 text-accent"
                             : "bg-stone-100 text-stone-600"
-                        }`}
+                          }`}
                       >
                         {user.role}
                       </span>

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const SUFFIX = "SalesOS";
+const SUFFIX = "OpenSales";
 
 export function useDocumentTitle(title: string | null | undefined) {
   useEffect(() => {

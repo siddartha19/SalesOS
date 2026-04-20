@@ -12,7 +12,7 @@ const DEFAULT_ICP =
 // ICP, target count, and autonomous toggle so reopening a campaign restores
 // exactly what the user last ran instead of the default placeholder text.
 const lsKey = (sessionId: string, field: string) =>
-  `salesos:campaign:${sessionId}:${field}`;
+  `opensales:campaign:${sessionId}:${field}`;
 
 export default function CampaignDetailPage({ params }: { params: { id: string } }) {
   const sessionId = params.id;
@@ -76,7 +76,7 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
       }
       const savedAuto = localStorage.getItem(lsKey(sessionId, "autonomous"));
       if (savedAuto === "1") setAutonomous(true);
-    } catch {}
+    } catch { }
     setIcpHydrated(true);
   }, [sessionId]);
 
@@ -87,7 +87,7 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
     if (!icpHydrated || typeof window === "undefined") return;
     try {
       localStorage.setItem(lsKey(sessionId, "icp"), icp);
-    } catch {}
+    } catch { }
   }, [sessionId, icp, icpHydrated]);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
     try {
       localStorage.setItem(lsKey(sessionId, "target_count"), String(targetCount));
       localStorage.setItem(lsKey(sessionId, "autonomous"), autonomous ? "1" : "0");
-    } catch {}
+    } catch { }
   }, [sessionId, targetCount, autonomous, icpHydrated]);
 
   // Load session data
@@ -117,8 +117,8 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
           const gr = await fetch("/api/proxy/governance");
           const gj = await gr.json();
           if (gj.company?.meeting_link) setMeetingLink(gj.company.meeting_link);
-        } catch {}
-      } catch {} finally {
+        } catch { }
+      } catch { } finally {
         setLoading(false);
       }
     })();
@@ -410,7 +410,7 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
       });
       const j = await r.json();
       setFollowUpSets(j.followups || []);
-    } catch {} finally {
+    } catch { } finally {
       setFollowUpLoading(false);
     }
   }
@@ -435,7 +435,7 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
       pushActivity([{ event: "followups_sent", count: toSend.length }]);
       setFollowUpSets([]);
       setFollowUpSelected(new Set());
-    } catch {} finally {
+    } catch { } finally {
       setFollowUpSending(false);
     }
   }
@@ -454,7 +454,7 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          prospect_email: "demo@salesos.opensource",
+          prospect_email: "demo@opensales.opensource",
           prospect_name: objection.prospect_name || "the prospect",
           company: objection.company || "the company",
           original_email: objection.original_email || "(our previous outreach)",
@@ -545,9 +545,8 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
               title="VP plans, SDR sources, AE drafts, VP reviews each draft, AE sends — all without human approval"
             >
               <span
-                className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border transition-colors ${
-                  autonomous ? "bg-accent border-accent" : "bg-stone-200 border-stone-300 group-hover:bg-stone-300"
-                }`}
+                className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border transition-colors ${autonomous ? "bg-accent border-accent" : "bg-stone-200 border-stone-300 group-hover:bg-stone-300"
+                  }`}
               >
                 <input
                   type="checkbox"
@@ -556,9 +555,8 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
                   onChange={(e) => setAutonomous(e.target.checked)}
                 />
                 <span
-                  className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform ${
-                    autonomous ? "translate-x-4" : "translate-x-0.5"
-                  }`}
+                  className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-transform ${autonomous ? "translate-x-4" : "translate-x-0.5"
+                    }`}
                 />
               </span>
               <span className="text-sm leading-tight">
@@ -575,7 +573,7 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
               className="btn btn-primary md:ml-auto justify-center"
             >
               {phase === "sourcing" ? "Sourcing…" :
-               autonomous ? "▶ Run autonomously" : "▶ Run sales team"}
+                autonomous ? "▶ Run autonomously" : "▶ Run sales team"}
             </button>
           </div>
 
@@ -824,9 +822,8 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
                       {fset.variants.map((v) => (
                         <label
                           key={v.id}
-                          className={`card cursor-pointer transition text-sm ${
-                            fset.selected_variant === v.id ? "ring-2 ring-accent" : ""
-                          }`}
+                          className={`card cursor-pointer transition text-sm ${fset.selected_variant === v.id ? "ring-2 ring-accent" : ""
+                            }`}
                         >
                           <div className="flex items-start gap-2">
                             <input
@@ -837,11 +834,10 @@ export default function CampaignDetailPage({ params }: { params: { id: string } 
                               className="mt-1"
                             />
                             <div>
-                              <div className={`pill text-[10px] mb-1 ${
-                                v.type === "gentle_nudge" ? "" :
-                                v.type === "value_add" ? "pill-accent" :
-                                "pill-warn"
-                              }`}>
+                              <div className={`pill text-[10px] mb-1 ${v.type === "gentle_nudge" ? "" :
+                                  v.type === "value_add" ? "pill-accent" :
+                                    "pill-warn"
+                                }`}>
                                 {v.label}
                               </div>
                               <div className="font-medium text-xs">{v.subject}</div>

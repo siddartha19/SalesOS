@@ -51,7 +51,7 @@ PIPELINE_HEADERS = [
     "Fit Score",
     "Why",
 ]
-DEFAULT_WORKSHEET = "SalesOS"
+DEFAULT_WORKSHEET = "OpenSales"
 
 
 def _ensure_header(worksheet: str = DEFAULT_WORKSHEET) -> None:

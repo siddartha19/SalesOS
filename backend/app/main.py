@@ -1,4 +1,4 @@
-"""FastAPI backend for SalesOS.
+"""FastAPI backend for OpenSales.
 
 Endpoints:
   POST /api/campaign/start       — Phase 1: SDR sources prospects
@@ -97,7 +97,7 @@ from .services import sendgrid_activity as sg_activity_svc
 from .services import sessions as sessions_svc
 from .services import users as users_svc
 
-app = FastAPI(title="SalesOS Backend", version="1.0.0")
+app = FastAPI(title="OpenSales Backend", version="1.0.0")
 
 origins = (
     [o.strip() for o in ALLOWED_ORIGINS.split(",") if o.strip()]
@@ -1198,7 +1198,7 @@ async def generate_followups(body: dict) -> dict:
 @app.get("/")
 async def root() -> dict:
     return {
-        "name": "SalesOS Backend",
+        "name": "OpenSales Backend",
         "ui": "Next.js on :3000",
         "endpoints": [
             "/api/auth/signup",

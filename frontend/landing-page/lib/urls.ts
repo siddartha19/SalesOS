@@ -18,7 +18,7 @@ export const APP_URL = RAW.replace(/\/+$/, "");
 export const LOGIN_URL = `${APP_URL}/login`;
 export const SIGNUP_URL = `${APP_URL}/signup`;
 
-export const GITHUB_URL = "https://github.com/siddartha19/SalesOS";
+export const GITHUB_URL = "https://github.com/siddartha19/OpenSales";
 
 // Enterprise contact. Set NEXT_PUBLIC_ENTERPRISE_CONTACT_URL on Render to a
 // Cal.com link, Tally form, or mailto:. Defaults to a sensible mailto.

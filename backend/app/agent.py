@@ -42,15 +42,15 @@ def make_llm(temperature: float = 0.3, max_tokens: int = 1500) -> ChatOpenAI:
         temperature=temperature,
         max_tokens=max_tokens,
         default_headers={
-            "HTTP-Referer": "https://salesos.local",
-            "X-Title": "SalesOS Buildathon",
+            "HTTP-Referer": "https://opensales.local",
+            "X-Title": "OpenSales",
         },
     )
 
 
 # ---------- Prompts ----------
 
-VP_PROMPT = """You are the VP of Sales for SalesOS. You manage two specialists:
+VP_PROMPT = """You are the VP of Sales for OpenSales. You manage two specialists:
 
 - sdr: discovers target companies and finds decision-makers at each.
 - ae: enriches contacts, writes personalized cold outreach, sends, logs to pipeline,
@@ -422,10 +422,10 @@ async def draft_outreach_for_prospect(
 
     # Step 4: Load company profile + build context (NEW)
     company_profile = company_svc.get_company_profile()
-    company_name = "SalesOS"
+    company_name = "OpenSales"
     company_context = ""
     if company_profile:
-        company_name = company_profile.get("company_name", "SalesOS")
+        company_name = company_profile.get("company_name", "OpenSales")
         context_parts = []
         if company_profile.get("tagline"):
             context_parts.append(f"TAGLINE: {company_profile['tagline']}")
@@ -515,7 +515,7 @@ async def _derive_email(full_name: str, company: str, fallback: str) -> str:
     Tier 1: Use QuickEmailVerification to discover the real pattern
             (tries 8 formats, returns the first verified hit).
     Tier 2: Naive firstname@company.com guess (old behaviour).
-    Tier 3: Hardcoded fallback (demo@salesos.opensource).
+    Tier 3: Hardcoded fallback (demo@opensales.opensource).
     """
     if not full_name:
         return fallback

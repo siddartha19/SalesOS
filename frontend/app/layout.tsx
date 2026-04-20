@@ -10,8 +10,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "SalesOS — AI Sales Team",
-    template: "%s · SalesOS",
+    default: "OpenSales — AI Sales Team",
+    template: "%s · OpenSales",
   },
   description: "VP Sales + SDR + AE — multi-agent outbound on LangGraph supervisor.",
 };

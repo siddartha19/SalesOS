@@ -32,7 +32,7 @@ from ..config import (
 
 def derive_email_for_demo(first_name: str, company_domain: str | None) -> str:
     """Plan: prospects firstname@<company_domain>.com,
-    fallback to demo@salesos.opensource.
+    fallback to demo@opensales.opensource.
 
     Used when AE has a name + company but no verified email.
     """
@@ -88,9 +88,9 @@ if __name__ == "__main__":
     print(derive_email_for_demo("Riya", "velocity.ai"))
     print(derive_email_for_demo("", None))
     res = send_email(
-        to_email="demo@salesos.opensource",
+        to_email="demo@opensales.opensource",
         to_name="Demo",
-        subject="Test from SalesOS",
-        body="Hello from the SalesOS backend smoke test.",
+        subject="Test from OpenSales",
+        body="Hello from the OpenSales backend smoke test.",
     )
     print(res)

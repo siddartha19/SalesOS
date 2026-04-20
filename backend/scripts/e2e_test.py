@@ -1,4 +1,4 @@
-"""End-to-end smoke test for the SalesOS pipeline.
+"""End-to-end smoke test for the OpenSales pipeline.
 
 Drives a real backend (defaults to http://127.0.0.1:8000) through every
 phase a user goes through in the UI:
@@ -309,7 +309,7 @@ async def main():
     )
     args = ap.parse_args()
 
-    print(BOLD(f"\nSalesOS E2E test → {args.backend}"))
+    print(BOLD(f"\nOpenSales E2E test → {args.backend}"))
     print(DIM(f"ICP: {args.icp}"))
     print(DIM(f"target_count={args.count}  no-send={args.no_send}  max_drafts={args.max_drafts}\n"))
 

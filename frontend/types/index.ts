@@ -1,4 +1,4 @@
-// Shared types for SalesOS frontend
+// Shared types for OpenSales frontend
 
 export type Prospect = {
   company: string;
@@ -25,7 +25,7 @@ export type SentResult = {
   error?: string;
 };
 
-export type Activity = { event: string; [k: string]: any };
+export type Activity = { event: string;[k: string]: any };
 
 export type SessionInfo = {
   session_id: string;

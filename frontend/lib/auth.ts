@@ -2,7 +2,7 @@
 // Edge (middleware) and Node (route handlers) runtimes.
 
 const SECRET = process.env.AUTH_SECRET || "dev-secret";
-const COOKIE_NAME = "salesos_auth";
+const COOKIE_NAME = "opensales_auth";
 const MAX_AGE_S = 60 * 60 * 8; // 8 hours
 
 function b64urlEncode(bytes: Uint8Array): string {

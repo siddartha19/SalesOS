@@ -51,7 +51,7 @@ export default function SignupPage() {
     <main className="min-h-screen flex items-center justify-center bg-bg p-6">
       <div className="w-full max-w-md card">
         <div className="mb-6">
-          <div className="text-xs tracking-widest text-stone-500 uppercase">SalesOS</div>
+          <div className="text-xs tracking-widest text-stone-500 uppercase">OpenSales</div>
           <h1 className="text-2xl font-semibold mt-1">Create Account</h1>
           <p className="text-sm text-stone-500 mt-1">
             Sign up to access your AI Sales Team.

@@ -13,7 +13,7 @@ services:
       # MUST be set per-environment (no trailing slash). Inlined at
       # build time via NEXT_PUBLIC_*, so changing it requires a redeploy.
       - key: NEXT_PUBLIC_APP_URL
-        value: "https://salesos.example.com"
+        value: "https://opensales.example.com"
     routes:
       - type: rewrite
         source: /*

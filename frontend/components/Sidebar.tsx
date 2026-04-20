@@ -98,7 +98,7 @@ const NAV_ITEMS: { label: string; href: string; icon: ReactNode }[] = [
   { label: "Admin", href: "/admin", icon: <AdminIcon /> },
 ];
 
-const STORAGE_KEY = "salesos:sidebar-collapsed";
+const STORAGE_KEY = "opensales:sidebar-collapsed";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -113,7 +113,7 @@ export default function Sidebar() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored !== null) setCollapsed(stored === "true");
-    } catch {}
+    } catch { }
     fetchSessions();
   }, []);
 
@@ -133,7 +133,7 @@ export default function Sidebar() {
       const next = !prev;
       try {
         localStorage.setItem(STORAGE_KEY, String(next));
-      } catch {}
+      } catch { }
       return next;
     });
   }
@@ -143,7 +143,7 @@ export default function Sidebar() {
       const r = await fetch("/api/proxy/sessions");
       const j = await r.json();
       setSessions(j.sessions || []);
-    } catch {}
+    } catch { }
   }
 
   async function createSession() {
@@ -158,7 +158,7 @@ export default function Sidebar() {
       });
       setNewName("");
       await fetchSessions();
-    } catch {} finally {
+    } catch { } finally {
       setCreating(false);
     }
   }
@@ -174,29 +174,26 @@ export default function Sidebar() {
     <aside
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`${
-        collapsed ? "w-14 min-w-[3.5rem]" : "w-60 min-w-[15rem]"
-      } border-r border-border bg-white flex flex-col h-screen sticky top-0 transition-[width,min-width] duration-200`}
+      className={`${collapsed ? "w-14 min-w-[3.5rem]" : "w-60 min-w-[15rem]"
+        } border-r border-border bg-white flex flex-col h-screen sticky top-0 transition-[width,min-width] duration-200`}
     >
       {/* Header: logo + toggle */}
       <div
-        className={`relative h-[57px] border-b border-border flex items-center ${
-          collapsed ? "justify-center px-0" : "justify-between px-4"
-        }`}
+        className={`relative h-[57px] border-b border-border flex items-center ${collapsed ? "justify-center px-0" : "justify-between px-4"
+          }`}
       >
         {/* Logo */}
         <Link
           href="/"
-          className={`flex items-center gap-2.5 transition-opacity duration-150 ${
-            collapsed && hovered ? "opacity-0 pointer-events-none" : "opacity-100"
-          }`}
-          title={collapsed ? "SalesOS" : undefined}
+          className={`flex items-center gap-2.5 transition-opacity duration-150 ${collapsed && hovered ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`}
+          title={collapsed ? "OpenSales" : undefined}
         >
           <div className="w-8 h-8 rounded-lg bg-accent text-white flex items-center justify-center font-bold text-sm">
             S
           </div>
           {!collapsed && (
-            <span className="font-semibold text-[15px] tracking-tight">SalesOS</span>
+            <span className="font-semibold text-[15px] tracking-tight">OpenSales</span>
           )}
         </Link>
 
@@ -215,9 +212,8 @@ export default function Sidebar() {
           <button
             type="button"
             onClick={toggleCollapsed}
-            className={`absolute inset-0 flex items-center justify-center text-stone-600 hover:text-ink bg-white transition-opacity duration-150 ${
-              hovered ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
+            className={`absolute inset-0 flex items-center justify-center text-stone-600 hover:text-ink bg-white transition-opacity duration-150 ${hovered ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
             title="Expand sidebar (⌘B)"
             aria-label="Expand sidebar"
           >
@@ -243,11 +239,10 @@ export default function Sidebar() {
           <Link
             href="/campaigns"
             title="Campaigns"
-            className={`flex items-center justify-center py-2 mx-2 my-0.5 rounded-md transition-colors ${
-              isCampaignActive
-                ? "text-accent bg-accentSoft/50"
-                : "text-stone-700 hover:bg-stone-50"
-            }`}
+            className={`flex items-center justify-center py-2 mx-2 my-0.5 rounded-md transition-colors ${isCampaignActive
+              ? "text-accent bg-accentSoft/50"
+              : "text-stone-700 hover:bg-stone-50"
+              }`}
           >
             <CampaignIcon />
           </Link>
@@ -255,9 +250,8 @@ export default function Sidebar() {
           <div className="mt-1">
             <button
               onClick={() => setCampaignsOpen(!campaignsOpen)}
-              className={`w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-stone-50 transition-colors duration-150 ${
-                isCampaignActive ? "text-accent font-medium" : "text-stone-700"
-              }`}
+              className={`w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-stone-50 transition-colors duration-150 ${isCampaignActive ? "text-accent font-medium" : "text-stone-700"
+                }`}
             >
               <span className="flex items-center gap-2.5">
                 <CampaignIcon />
@@ -272,9 +266,8 @@ export default function Sidebar() {
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className={`text-stone-400 transition-transform duration-150 ${
-                  campaignsOpen ? "rotate-180" : ""
-                }`}
+                className={`text-stone-400 transition-transform duration-150 ${campaignsOpen ? "rotate-180" : ""
+                  }`}
                 aria-hidden="true"
               >
                 <polyline points="6 9 12 15 18 9" />
@@ -285,11 +278,10 @@ export default function Sidebar() {
               <div className="ml-4 border-l border-stone-100">
                 <Link
                   href="/campaigns"
-                  className={`block px-4 py-1.5 text-sm hover:bg-stone-50 transition-colors duration-150 ${
-                    pathname === "/campaigns"
-                      ? "text-accent font-medium bg-accentSoft/40"
-                      : "text-stone-600"
-                  }`}
+                  className={`block px-4 py-1.5 text-sm hover:bg-stone-50 transition-colors duration-150 ${pathname === "/campaigns"
+                    ? "text-accent font-medium bg-accentSoft/40"
+                    : "text-stone-600"
+                    }`}
                 >
                   View all ({sessions.length})
                 </Link>
@@ -297,11 +289,10 @@ export default function Sidebar() {
                   <Link
                     key={s.session_id}
                     href={`/campaigns/${s.session_id}`}
-                    className={`block px-4 py-1.5 text-sm truncate hover:bg-stone-50 transition-colors duration-150 ${
-                      pathname === `/campaigns/${s.session_id}`
-                        ? "text-accent font-medium bg-accentSoft/40"
-                        : "text-stone-500"
-                    }`}
+                    className={`block px-4 py-1.5 text-sm truncate hover:bg-stone-50 transition-colors duration-150 ${pathname === `/campaigns/${s.session_id}`
+                      ? "text-accent font-medium bg-accentSoft/40"
+                      : "text-stone-500"
+                      }`}
                     title={s.name}
                   >
                     {s.name}
@@ -398,11 +389,10 @@ function NavLink({
         href={href}
         title={label}
         aria-label={label}
-        className={`flex items-center justify-center py-2 mx-2 my-0.5 rounded-md transition-colors ${
-          active
-            ? "text-accent bg-accentSoft/50"
-            : "text-stone-700 hover:bg-stone-50"
-        }`}
+        className={`flex items-center justify-center py-2 mx-2 my-0.5 rounded-md transition-colors ${active
+          ? "text-accent bg-accentSoft/50"
+          : "text-stone-700 hover:bg-stone-50"
+          }`}
       >
         {icon}
       </Link>
@@ -412,11 +402,10 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`flex items-center gap-2.5 px-4 py-2 text-sm transition-colors ${
-        active
-          ? "text-accent font-medium bg-accentSoft/40 border-r-2 border-accent"
-          : "text-stone-700 hover:bg-stone-50"
-      }`}
+      className={`flex items-center gap-2.5 px-4 py-2 text-sm transition-colors ${active
+        ? "text-accent font-medium bg-accentSoft/40 border-r-2 border-accent"
+        : "text-stone-700 hover:bg-stone-50"
+        }`}
     >
       {icon}
       {label}
