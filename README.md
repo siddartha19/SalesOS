@@ -4,7 +4,6 @@
 
 A multi-agent outbound sales system. Paste an ICP. A VP-of-Sales agent plans the campaign, an SDR agent finds target companies and decision-makers, an AE agent enriches contacts and writes personalized cold emails using fresh signal from LinkedIn and the open web. You review the drafts and click send. Every prospect lands in a Google Sheet pipeline. Every agent step is traced with token cost and latency.
 
-Built for India's first OpenCode Buildathon (powered by GrowthX). Open source. MIT.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
