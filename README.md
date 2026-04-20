@@ -303,15 +303,6 @@ A few non-obvious calls in the v0:
 - **Every send is reviewed before it goes out.** The VP agent and the human-in-the-loop approval queue both gate the SendGrid call. No background blasts.
 - **One LLM provider.** OpenRouter fronts ~50 models with one API key, one billing dashboard, one SDK. Swap models with one env var without rewriting agent code.
 
----
-
-## Built at
-
-[India's First OpenCode Buildathon](https://growthx.club) — powered by GrowthX, April 2026. 6 hours, solo build, MaaS track.
-
-If you're at a YC interview and you want a working multi-agent demo, fork this. The code is small (~3000 LOC), the architecture is real, and you can have it running in 10 minutes.
-
----
 
 ## License
 
